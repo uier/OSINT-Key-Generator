@@ -28,17 +28,29 @@
       .ui.input {
         margin-bottom: 3em;
       }
+      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: #fff !important;
+      }
+      ::-moz-placeholder { /* Firefox 19+ */
+        color: #fff !important;
+      }
+      :-ms-input-placeholder { /* IE 10+ */
+        color: #fff !important;
+      }
+      :-moz-placeholder { /* Firefox 18- */
+        color: #fff !important;
+      }
     </style>
   </head>
   <body>
     <div class="ui text container">
       <div style="text-align: center;">
         <h1>OSINT Key Generator</h1>
-        <form class="ui form" action="/gen" method="POST">
+        <form class="ui form" action="/osint" method="POST">
           <div class="ui fluid large input">
-            <input id="typing" class="typing" type="text" onfocus="this.value = ''">
+            <input id="typing" name="name" class="typing" type="text">
           </div>
-          <button class="ui main large button" type="submit">OSINT</button>
+          <input class="ui main large button" name="action" type="submit" value="OSINT">
         </form>
       </div>
     </div>
@@ -48,7 +60,7 @@
       strings: ['Hey! ^500Type your name here.', 'and see what will happen :P^1000'],
       typeSpeed: 40,
       backSpeed: 10,
-      attr: 'value',
+      attr: 'placeholder',
       bindInputFocusEvents: true,
       loop: true
     };

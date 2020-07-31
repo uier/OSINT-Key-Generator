@@ -1,22 +1,31 @@
-from flask import Flask, render_template, request
+import tempfile
+from flask import Flask, render_template, request, send_file
+
 app = Flask(__name__, template_folder='./templates')
 
 @app.route('/')
 def index():
     return render_template('home.html')
 
-@app.route('/gen', methods=['GET', 'POST'])
-def gen():
+@app.route('/osint', methods=['GET', 'POST'])
+def osint():
     if request.method == 'GET':
-        return render_template('gen.html', osint_result='GET')
+        return render_template('osint.html', osint_result='GET')
     elif request.method == 'POST':
-        name = [x.strip() for x in request.form['name'].split(',')]
-        user_id = [x.strip() for x in request.form['id'].split(',')]
-        email = [x.strip() for x in request.form['email'].split(',')]
-        birth = [x.strip() for x in request.form['birth'].split(',')]
-        phone = [x.strip() for x in request.form['phone'].split(',')]
-        return render_template('gen.html', osint_result=request.form)
-
+        print(request)
+        if request.form['action'] == 'GENERATE':
+            txt = tempfile.TemporaryFile()
+            txt.write(b'123')
+            txt.seek(0)
+            return send_file(txt, as_attachment=True, attachment_filename='password.txt')
+        else:
+            data = {}
+            for key in request.form:
+                if key:
+                    data[key] = [x.strip() for x in request.form[key].split(',')]
+                else:
+                    data[key] = []
+            return render_template('osint.html', osint_result=data, data=data)
 
 if __name__ == "__main__":
     app.run(port=9000)

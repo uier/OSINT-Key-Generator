@@ -85,40 +85,46 @@
           <div class="title tips">
             Separate multiple values with commas.
           </div>
-          <form class="ui form" action="/gen" method="POST">
+          <form class="ui form" action="/osint" method="POST">
             <div class="field">
               <div class="field ui input">
                 <label class="title" id="input-label">Name</label>
-                <input name="name" class="title typing" type="text" placeholder="陳冠宇, 阿宇">
+                <input name="name" class="title typing" type="text" placeholder="陳冠宇, 阿宇" value="{{ ', '.join(data['name']) }}">
               </div>
             </div>
             <div class="field">
               <div class="field ui input">
                 <label class="title" id="input-label">ID</label>
-                <input name="id" class="title typing" type="text" placeholder="asdf777, asdf">
+                <input name="id" class="title typing" type="text" placeholder="asdf777, asdf" value="{{ ', '.join(data['id']) }}">
               </div>
             </div>
             <div class="field">
               <div class="field ui input">
                 <label class="title" id="input-label">Email</label>
-                <input name="email" class="title typing" type="text" placeholder="google@gmail.com">
+                <input name="email" class="title typing" type="text" placeholder="google@gmail.com" value="{{ ', '.join(data['email']) }}">
               </div>
             </div>
             <div class="field">
               <div class="field ui input">
                 <label class="title" id="input-label">Phone</label>
-                <input name="phone" class="title typing" type="text" placeholder="0912345678, 77491111">
+                <input name="phone" class="title typing" type="text" placeholder="0912345678, 77491111" value="{{ ', '.join(data['phone']) }}">
               </div>
             </div>
             <div class="field">
               <div class="field ui input">
                 <label class="title" id="input-label">Birth</label>
-                <input name="birth" class="title typing" type="text" placeholder="YYYY/MM/HH">
+                <input name="birth" class="title typing" type="text" placeholder="YYYY/MM/HH" value="{{ ', '.join(data['birth']) }}">
+              </div>
+            </div>
+            <div class="field">
+              <div class="field ui input">
+                <label class="title" id="input-label">Other</label>
+                <input name="other" class="title typing" type="text" placeholder="whatever, you, wanna, try" value="{{ ', '.join(data['other']) }}">
               </div>
             </div>
             <div class="button-group">
-              <button class="ui main button" type="submit">GENERATE</button>
-              <button class="ui main button" type="submit">OSINT</button>
+              <input class="ui main button" name="action" type="submit" value="GENERATE">
+              <input class="ui main button" name="action" type="submit" value="OSINT">
             </div>
           </form>
         </div>

@@ -78,7 +78,7 @@
     </style>
   </head>
   <body>
-    <div class="ui two column centered grid">
+    <div class="ui two column centered grid stackable">
       <h1>OSINT Key Generator</h1>
       <div id="container" class="three column row">
         <div class="column">
@@ -123,7 +123,7 @@
               </div>
             </div>
             <div class="button-group">
-              <input class="ui main button" name="action" type="submit" value="GENERATE">
+            <input class="ui main button" name="action" type="submit" value="GENERATE" onclick="setTimeout(() => {event.target.disabled = true}, 0)">
               <input class="ui main button" name="action" type="submit" value="OSINT">
             </div>
           </form>

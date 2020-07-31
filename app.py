@@ -1,4 +1,5 @@
 import tempfile
+import time
 from flask import Flask, render_template, request, send_file
 from itertools import permutations
 from ch2en import ch2en
@@ -67,7 +68,7 @@ def index():
 @app.route('/osint', methods=['GET', 'POST'])
 def osint():
     if request.method == 'GET':
-        return render_template('osint.html', osint_result='GET')
+        return render_template('osint.html', osint_result='GET', data={})
     elif request.method == 'POST':
         print(request)
         data = {}
@@ -99,7 +100,6 @@ def osint():
             txt.seek(0)
             return send_file(txt, as_attachment=True, attachment_filename='password.txt')
         else:
-
                 
             return render_template('osint.html', osint_result=data, data=data)
 

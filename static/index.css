@@ -1,0 +1,14 @@
+* {
+  border: 1px solid greenyellow;
+}
+
+body {
+  background-color: #1a1a1d;
+  color: #fff;
+}
+
+h1 {
+  font-size: 3em;
+  font-family: 'Orbitron';
+  font-weight: normal;
+}

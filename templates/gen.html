@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='index.css') }}">
+    <style type="text/css">
+      body > .ui.grid {
+        padding-top: 10vh;
+      }
+      .ui.input input.typing, .ui.input input.typing:focus {
+        border: 1px solid #fff;
+        background-color: transparent;
+        color: #fff;
+        font-size: 1.2em;
+      }
+      .ui.main.button {
+        font-family: 'Orbitron';
+        background-color: #950740;
+        color: #fff;
+      }
+      .plus {
+        display: flex;
+        align-items: center;
+      }
+      .plus-button {
+        border: none;
+        outline:none;
+        color: #25C1F9;
+        text-align: center;
+        background-color: transparent;
+      }
+      .plus-button:hover {
+        cursor: pointer;
+      }
+      .ui.form > .field {
+        margin-bottom: 3em;
+      }
+      .field.ui.input {
+        display: flex;
+        justify-content: stat;
+        align-items: center;
+      }
+      .button-group {
+        display: flex;
+        justify-content: space-evenly;
+      }
+      .title {
+        font-size: 1.2em;
+      }
+      #input-label {
+        color: #fff;
+        width: 75px;
+        text-align: right;
+        padding-right: 10px;
+        font-size: 1.2em;
+      }
+      .tips {
+        color: crimson;
+        text-align: center;
+        padding: 1em 1em 1em 3em;
+      }
+      .mask {
+        -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 15%,rgba(0, 0, 0, 1) 85%,rgba(0, 0, 0, 0) 100%);
+        height: 70vh;
+        overflow-y: auto;
+      }
+      #container {
+        display: flex;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ui two column centered grid">
+      <h1>OSINT Key Generator</h1>
+      <div id="container" class="three column row">
+        <div class="column">
+          <div class="title tips">
+            Separate multiple values with commas.
+          </div>
+          <form class="ui form" action="/gen" method="POST">
+            <div class="field">
+              <div class="field ui input">
+                <label class="title" id="input-label">Name</label>
+                <input name="name" class="title typing" type="text" placeholder="陳冠宇, 阿宇">
+              </div>
+            </div>
+            <div class="field">
+              <div class="field ui input">
+                <label class="title" id="input-label">ID</label>
+                <input name="id" class="title typing" type="text" placeholder="asdf777, asdf">
+              </div>
+            </div>
+            <div class="field">
+              <div class="field ui input">
+                <label class="title" id="input-label">Email</label>
+                <input name="email" class="title typing" type="text" placeholder="google@gmail.com">
+              </div>
+            </div>
+            <div class="field">
+              <div class="field ui input">
+                <label class="title" id="input-label">Phone</label>
+                <input name="phone" class="title typing" type="text" placeholder="0912345678, 77491111">
+              </div>
+            </div>
+            <div class="field">
+              <div class="field ui input">
+                <label class="title" id="input-label">Birth</label>
+                <input name="birth" class="title typing" type="text" placeholder="YYYY/MM/HH">
+              </div>
+            </div>
+            <div class="button-group">
+              <button class="ui main button" type="submit">GENERATE</button>
+              <button class="ui main button" type="submit">OSINT</button>
+            </div>
+          </form>
+        </div>
+        <div class="column mask">
+          <p style="color: #fff;">
+            <br>
+            <br>
+            <br>
+            {{ osint_result }}
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+            The annual Hajj is set to take place in the sacred city of Mecca, Saudi Arabia. The pilgrimage is one of the most important events in the Muslim calendar. It lasts approximately 5 to 6 days and is a mandatory religious duty for Muslims. Hajj must be carried out at least once in the lifetime of all adult Muslims. However, they must be physically and financially capable of undertaking the journey and must be able to support their family during their absence. This year's Hajj has been greatly scaled down because precautionary measures for coronavirus have been put in place. The pandemic has meant the postponement of numerous events, causing considerable disappointment for pilgrims.
+
+            <br>
+            <br>
+            <br>
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

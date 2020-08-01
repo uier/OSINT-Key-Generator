@@ -4,6 +4,10 @@ from flask import Flask, render_template, request, send_file
 from itertools import permutations
 from ch2en import ch2en
 from gregorian2lunar import gregorian2lunar
+import subprocess
+import requests
+import asyncio
+import websockets
 
 app = Flask(__name__, template_folder='./templates')
 
@@ -36,6 +40,7 @@ def gen_birth(birth):
     lunar = []
     for b in birth:
         b = [int(i) for i in b.split('/')]
+        b += [b[0] - 1911]
         birth_list += b
         lunar += gregorian2lunar.lunar([b[0],b[1],b[2]])[1:]
     lst = []
@@ -53,11 +58,18 @@ def gen_phone(phones):
 
 
 def gen_id(user_ids):
-    uid_list = []
+    print(user_ids)
+
+    uid_list = list()
+
     for uid in user_ids:
+        # print(uid)
+        print(uid)
+        uid_list += [uid]
         for i in range(len(uid)):
                 for j in range(2,len(uid)):
                     uid_list += [uid[i:i+j]]
+    # print(uid_list)
     return list(set(uid_list))
 
 
@@ -89,21 +101,26 @@ def osint():
             phone_list = gen_phone(data.get('phone'))
             other_list = data.get('other')
             id_list = gen_id(data.get('id'))
-
+            
+            # print(id_list)
             all_list = [name_list,birth_list,phone_list,id_list,other_list]
             lst = []
+
             for i,j in permutations(all_list,2):
                 for k,l in permutations(i+j,2):
                     lst += [k+l]
-
-            
+                for k,l,m in permutations(i+j,3):
+                    lst += [k+l+m]
+                for k,l,m,n in permutations(i+j,4):
+                    lst += [k+l+m+n]
+                    
+            lst = list(set(lst))
             txt = tempfile.TemporaryFile()
             ret = '\n'.join(lst)
             txt.write(str.encode(ret))
             txt.seek(0)
             return send_file(txt, as_attachment=True, attachment_filename='password.txt')
         else:
-                
             return render_template('osint.html', osint_result=data, data=data)
 
 if __name__ == "__main__":

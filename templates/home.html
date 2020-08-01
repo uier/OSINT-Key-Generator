@@ -1,71 +1,86 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='index.css') }}">
-    <style type="text/css">
-      body > .ui.container {
-        padding-top: 20vh;
-      }
-      .ui.input input.typing, .ui.input input.typing:focus {
-        border: 1px solid #c3073f;
-        background-color: transparent;
-        color: #fff;
-        font-size: 1.2em;
-      }
-      .ui.main.button {
-        font-family: 'Orbitron';
-        background-color: #950740;
-        color: #fff;
-      }
-      .ui.input {
-        margin-bottom: 3em;
-      }
-      ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        color: #fff !important;
-      }
-      ::-moz-placeholder { /* Firefox 19+ */
-        color: #fff !important;
-      }
-      :-ms-input-placeholder { /* IE 10+ */
-        color: #fff !important;
-      }
-      :-moz-placeholder { /* Firefox 18- */
-        color: #fff !important;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="ui text container">
-      <div style="text-align: center;">
-        <h1>OSINT Key Generator</h1>
-        <form class="ui form" action="/osint" method="POST">
-          <div class="ui fluid large input">
-            <input id="typing" name="name" class="typing" type="text">
-          </div>
-          <input class="ui main large button" name="action" type="submit" value="OSINT">
-        </form>
-      </div>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OSINT Key Generator</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css') }}">
+  <style type="text/css">
+    body>.ui.container {
+      padding-top: 20vh;
+    }
+
+    .ui.input input.typing,
+    .ui.input input.typing:focus {
+      border: 1px solid #c3073f;
+      background-color: transparent;
+      color: #fff;
+      font-size: 1.2em;
+    }
+
+    .ui.main.button {
+      font-family: 'Orbitron';
+      background-color: #950740;
+      color: #fff;
+    }
+
+    .ui.input {
+      margin-bottom: 3em;
+    }
+
+    ::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      color: #fff !important;
+    }
+
+    ::-moz-placeholder {
+      /* Firefox 19+ */
+      color: #fff !important;
+    }
+
+    :-ms-input-placeholder {
+      /* IE 10+ */
+      color: #fff !important;
+    }
+
+    :-moz-placeholder {
+      /* Firefox 18- */
+      color: #fff !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ui text container">
+    <div style="text-align: center;">
+      <h1>OSINT Key Generator</h1>
+      <form class="ui form" action="/osint" method="POST">
+        <div class="ui fluid large input">
+          <input id="typing" name="name" class="typing" type="text">
+        </div>
+        <input class="ui main large button" name="action" type="submit" value="OSINT">
+      </form>
     </div>
-  </body>
-  <script>
-    var options = {
-      strings: ['Hey! ^500Type your name here.', 'and see what will happen :P^1000'],
-      typeSpeed: 40,
-      backSpeed: 10,
-      attr: 'placeholder',
-      bindInputFocusEvents: true,
-      loop: true
-    };
+  </div>
+</body>
+<script>
+  var options = {
+    strings: ['Hey! ^500Type your name here.', 'and see what will happen :P^1000'],
+    typeSpeed: 40,
+    backSpeed: 10,
+    attr: 'placeholder',
+    bindInputFocusEvents: true,
+    loop: true
+  };
 
-    var typed = new Typed('.typing', options);
+  var typed = new Typed('.typing', options);
 
-  </script>
+</script>
+
 </html>

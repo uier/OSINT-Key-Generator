@@ -1,146 +1,195 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='index.css') }}">
-    <style type="text/css">
-      body > .ui.grid {
-        padding-top: 10vh;
-      }
-      .ui.input input.typing, .ui.input input.typing:focus {
-        border: 1px solid #fff;
-        background-color: transparent;
-        color: #fff;
-        font-size: 1.2em;
-      }
-      .ui.main.button {
-        font-family: 'Orbitron';
-        background-color: #950740;
-        color: #fff;
-      }
-      .plus {
-        display: flex;
-        align-items: center;
-      }
-      .plus-button {
-        border: none;
-        outline:none;
-        color: #25C1F9;
-        text-align: center;
-        background-color: transparent;
-      }
-      .plus-button:hover {
-        cursor: pointer;
-      }
-      .ui.form > .field {
-        margin-bottom: 3em;
-      }
-      .field.ui.input {
-        display: flex;
-        justify-content: stat;
-        align-items: center;
-      }
-      .button-group {
-        display: flex;
-        justify-content: space-evenly;
-      }
-      .title {
-        font-size: 1.2em;
-      }
-      #input-label {
-        color: #fff;
-        width: 75px;
-        text-align: right;
-        padding-right: 10px;
-        font-size: 1.2em;
-      }
-      .tips {
-        color: crimson;
-        text-align: center;
-        padding: 1em 1em 1em 3em;
-      }
-      .mask {
-        -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 15%,rgba(0, 0, 0, 1) 85%,rgba(0, 0, 0, 0) 100%);
-        height: 70vh;
-        overflow-y: auto;
-      }
-      #container {
-        display: flex;
-        align-items: center;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="ui two column centered grid stackable">
-      <h1>OSINT Key Generator</h1>
-      <div id="container" class="three column row">
-        <div class="column">
-          <div class="title tips">
-            Separate multiple values with commas.
-          </div>
-          <form class="ui form" action="/osint" method="POST">
-            <div class="field">
-              <div class="field ui input">
-                <label class="title" id="input-label">Name</label>
-                <input name="name" class="title typing" type="text" placeholder="陳冠宇, 阿宇" value="{{ ', '.join(data['name']) }}">
-              </div>
-            </div>
-            <div class="field">
-              <div class="field ui input">
-                <label class="title" id="input-label">ID</label>
-                <input name="id" class="title typing" type="text" placeholder="asdf777, asdf" value="{{ ', '.join(data['id']) }}">
-              </div>
-            </div>
-            <div class="field">
-              <div class="field ui input">
-                <label class="title" id="input-label">Email</label>
-                <input name="email" class="title typing" type="text" placeholder="google@gmail.com" value="{{ ', '.join(data['email']) }}">
-              </div>
-            </div>
-            <div class="field">
-              <div class="field ui input">
-                <label class="title" id="input-label">Phone</label>
-                <input name="phone" class="title typing" type="text" placeholder="0912345678, 77491111" value="{{ ', '.join(data['phone']) }}">
-              </div>
-            </div>
-            <div class="field">
-              <div class="field ui input">
-                <label class="title" id="input-label">Birth</label>
-                <input name="birth" class="title typing" type="text" placeholder="YYYY/MM/HH" value="{{ ', '.join(data['birth']) }}">
-              </div>
-            </div>
-            <div class="field">
-              <div class="field ui input">
-                <label class="title" id="input-label">Other</label>
-                <input name="other" class="title typing" type="text" placeholder="whatever, you, wanna, try" value="{{ ', '.join(data['other']) }}">
-              </div>
-            </div>
-            <div class="button-group">
-                <input class="ui main button" name="action" type="submit" value="GENERATE" onclick="setTimeout(() => {event.target.disabled = true}, 0); setTimeout(() => {event.target.disabled = false}, 1000)">
-              <input class="ui main button" name="action" type="submit" value="OSINT">
-            </div>
-          </form>
-        </div>
-        <div class="column mask">
-          <p style="color: #fff;">
-            <br>
-            <br>
-            <br>
-            {{ osint_result }}
 
-            <br>
-            <br>
-            <br>
-          </p>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OSINT Key Generator</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css') }}">
+  <style type="text/css">
+    body>.ui.grid {
+      padding-top: 10vh;
+    }
+
+    .ui.input input.typing,
+    .ui.input input.typing:focus {
+      border: 1px solid #fff;
+      background-color: transparent;
+      color: #fff;
+      font-size: 1.2em;
+    }
+
+    .ui.main.button {
+      font-family: 'Orbitron';
+      background-color: #950740;
+      color: #fff;
+    }
+
+    .plus {
+      display: flex;
+      align-items: center;
+    }
+
+    .plus-button {
+      border: none;
+      outline: none;
+      color: #25C1F9;
+      text-align: center;
+      background-color: transparent;
+    }
+
+    .plus-button:hover {
+      cursor: pointer;
+    }
+
+    .ui.form>.field {
+      margin-bottom: 3em;
+    }
+
+    .field.ui.input {
+      display: flex;
+      justify-content: stat;
+      align-items: center;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    .title {
+      font-size: 1.2em;
+    }
+
+    #input-label {
+      color: #fff;
+      width: 75px;
+      text-align: right;
+      padding-right: 10px;
+      font-size: 1.2em;
+      margin-right: 10px;
+    }
+
+    .tips {
+      color: crimson;
+      text-align: center;
+      padding: 1em 1em 1em 3em;
+    }
+
+    .mask {
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 15%, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
+      height: 70vh;
+      overflow-y: auto;
+    }
+
+    #container {
+      display: flex;
+      align-items: center;
+    }
+
+    .osint-content {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 1.1em;
+    }
+
+    p>a {
+      color: #5acbff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ui two column centered grid stackable">
+    <h1>OSINT Key Generator</h1>
+    <div id="container" class="three column row">
+      <div class="column">
+        <div class="title tips">
+          Separate multiple values with commas.
         </div>
+        <form class="ui form" action="/osint" method="POST">
+          <div class="field">
+            <div class="field ui input">
+              <label class="title" id="input-label">Name *</label>
+              <input name="name" class="title typing" type="text" placeholder="陳冠宇, 阿宇"
+                value="{{ ', '.join(data['name']) }}" required id="name">
+            </div>
+          </div>
+          <div class="field">
+            <div class="field ui input">
+              <label class="title" id="input-label">Nickname (English)</label>
+              <input name="id" class="title typing" type="text" placeholder="asdf777, asdf"
+                value="{{ ', '.join(data['id']) }}">
+            </div>
+          </div>
+          <div class="field">
+            <div class="field ui input">
+              <label class="title" id="input-label">Email</label>
+              <input name="email" class="title typing" type="text" placeholder="google@gmail.com"
+                value="{{ ', '.join(data['email']) }}">
+            </div>
+          </div>
+          <div class="field">
+            <div class="field ui input">
+              <label class="title" id="input-label">Phone</label>
+              <input name="phone" class="title typing" type="text" placeholder="0912345678, 77491111"
+                value="{{ ', '.join(data['phone']) }}">
+            </div>
+          </div>
+          <div class="field">
+            <div class="field ui input">
+              <label class="title" id="input-label">Birth</label>
+              <input name="birth" class="title typing" type="text" placeholder="YYYY/MM/HH"
+                value="{{ ', '.join(data['birth']) }}">
+            </div>
+          </div>
+          <div class="field">
+            <div class="field ui input">
+              <label class="title" id="input-label">Other</label>
+              <input name="other" class="title typing" type="text" placeholder="whatever, you, wanna, try"
+                value="{{ ', '.join(data['other']) }}">
+            </div>
+          </div>
+          <div class="button-group">
+            <input class="ui main button" name="action" type="submit" value="GENERATE"
+              onclick="setTimeout(() => {event.target.disabled = true}, 0); setTimeout(() => {event.target.disabled = false}, 1000)">
+          </div>
+        </form>
+      </div>
+      <div class="column mask" style="align-self: flex-start;">
+        <p class="osint-content" style="color: #fff;" id="osint"><br><br><br><br></p>
       </div>
     </div>
-  </body>
+  </div>
+  <script>
+    // document.getElementById("osint").innerHTML += 'hihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihi'
+    // document.getElementById("osint").innerHTML += '<br>ooohihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihi'
+    // document.getElementById("osint").innerHTML += '<br>ooohihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihi'
+    // document.getElementById("osint").innerHTML += '<br>ooohihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihi'
+    // document.getElementById("osint").innerHTML += '<br>ooohihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihihi'
+
+    let socket = new WebSocket("ws://140.118.170.44:5678");
+
+    socket.onopen = function (e) {
+      let name = document.getElementById("name").value
+      // console.log("get info " + name)
+      socket.send("get_info");
+      socket.send(name);
+    };
+
+    socket.onmessage = function (event) {
+      document.getElementById("osint").innerHTML += '<p>' + event.data.toString() + '</p>';
+    };
+
+    socket.onerror = function (event) {
+      console.log(event);
+    };
+  </script>
+</body>
+
 </html>

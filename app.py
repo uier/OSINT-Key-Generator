@@ -11,13 +11,16 @@ app = Flask(__name__, template_folder='./templates')
 def gen_name_list(names):
     name_list = []
     for n in names:
-        name_list += [ch2en.zhuen(n)] # 全名
-        name_list += [ch2en.zhuen(n[1])] # 只有姓
-        name_list += [ch2en.zhuen(n[1:])] # 沒有姓
+        try:
+            name_list += [ch2en.zhuen(n)] # 全名
+            name_list += [ch2en.zhuen(n[1])] # 只有姓
+            name_list += [ch2en.zhuen(n[1:])] # 沒有姓
 
-        name_list += [ch2en.cangjie(n).lower()]
-        name_list += [ch2en.cangjie(n[1]).lower()]
-        name_list += [ch2en.cangjie(n[1:]).lower()]
+            name_list += [ch2en.cangjie(n).lower()]
+            name_list += [ch2en.cangjie(n[1]).lower()]
+            name_list += [ch2en.cangjie(n[1:]).lower()]
+        except:
+            name_list += n
     return name_list
 
 
@@ -74,7 +77,7 @@ def osint():
         data = {}
         for key in request.form:
             if key:
-                data[key] = [x.strip() for x in request.form[key].split(',')]
+                data[key] = [x.strip() for x in request.form[key].split(',') if x.strip()]
             else:
                 data[key] = []        
 

@@ -77,7 +77,7 @@ def osint():
         data = {}
         for key in request.form:
             if key:
-                data[key] = [x.strip() for x in request.form[key].split(',') if x.strip()]
+                data[key] = [x.strip() for x in request.form[key].split(',') if x.strip()][:10]
             else:
                 data[key] = []        
 
